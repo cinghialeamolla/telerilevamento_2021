@@ -51,7 +51,8 @@ plot(p224r63_2011$B1_sre,col=cl)
 #questa funzione plotta le prime due bande una accanto all'altra (stabilisce come mettere le immagini nel software)
 #prepara lo schermo per 1 riga e 2 colonne
 par(mfrow=c(1,2))
-plot(pplot(p224r63_2011$B1_sre)224r63_2011$B1_sre)
+#plotta le 2 immagini
+plot(p224r63_2011$B1_sre)
 plot(p224r63_2011$B2_sre)
 
 #1 colonna e 2 righe
@@ -87,3 +88,48 @@ plot(p224r63_2011$B3_sre,col=clr)
 clnir<-colorRampPalette(c("red","orange","yellow")) (100)
 plot(p224r63_2011$B4_sre,col=clnir)
 
+### DAY 4
+#Bande Landsat
+#B1: Blu
+#B2: Verde
+#B3: Rosso
+#B4: Infrarosso Vicino
+#B5: Infrarosso Medio
+#B6: Infrarosso Termico
+#B7: Infrarosso Medio
+
+#Visualizzare i dati plottati con RGB
+#questa funzione visualizza l'immagine in colori naturali
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+
+#questa funzione visualizza l'infrarosso vicino
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+
+#inverto inf. vicino e verde/i.r. e blu
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+
+#esercizio multiframe 2x2 con le 4 bande sopra
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+
+#questa funzione fa un pdf grezzo dall'immagine su R
+pdf("il_mio_primo_pdf_con_R.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
+
+#questa funzione applica l'histogram stretch
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+#par in colori naturali, colori falsi, colori falsi con histogram stretch
+par(mfrow=c(3,1))
+plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
