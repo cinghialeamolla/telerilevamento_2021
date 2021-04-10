@@ -105,7 +105,7 @@ plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 #questa funzione visualizza l'infrarosso vicino
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
 
-#inverto inf. vicino e verde/i.r. e blu
+#inverto inf. vicino e verde/i.v. e blu
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=2, b=4, stretch="Lin")
 
@@ -133,3 +133,56 @@ par(mfrow=c(3,1))
 plotRGB(p224r63_2011, r=3, g=2, b=1, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="Lin")
 plotRGB(p224r63_2011, r=3, g=4, b=2, stretch="hist")
+
+### DAY 5
+# Stessa immagine del 2011, ma nel 1988
+# p224r63_1988_masked
+
+#Prima cosa da fare ogni volta è ricordare il pacchetto "raster" e caricare la cartella lab
+library(raster)
+setwd("C:/lab/")
+
+#SET multitemporale
+#2011
+p224r63_2011<-brick("p224r63_2011_masked.grd")
+p224r63_2011
+#1988
+p224r63_1988<-brick("p224r63_1988_masked.grd")
+p224r63_1988
+
+#questa funzione permette di visualizzare i dati
+plot(p224r63_1988)
+
+#Bande Landsat
+#B1: Blu
+#B2: Verde
+#B3: Rosso
+#B4: Infrarosso Vicino
+#B5: Infrarosso Medio
+#B6: Infrarosso Termico
+#B7: Infrarosso Medio
+
+#questa funzione visualizza l'immagine in colori naturali
+plotRGB(p224r63_1988, r=3, g=2, b=1, stretch="Lin")
+#toglie la banda del blu e mette l'infrarosso vicino
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+
+#confronto tra la vegetazione nel 1988 e nel 2011
+par(mfrow=c(2,1))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+#confronto, aggiungendo l'hist stretch
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+
+#salvare tutto in pdf
+pdf("multitemp.pdf")
+par(mfrow=c(2,2))
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="Lin")
+plotRGB(p224r63_1988, r=4, g=3, b=2, stretch="hist")
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="hist")
+dev.off()
