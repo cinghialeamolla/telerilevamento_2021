@@ -42,7 +42,9 @@ plotRGB(TGr, 2, 3, 4, stretch="lin")
 ### DAY 2
 library(raster)
 library(rasterVis)
-setwd("C:/lab/greenland")
+# setwd("~/lab/greenland") # Linux
+setwd("C:/lab/greenland") # Windows
+# setwd("/Users/name/Desktop/lab/greenland") # Mac 
 
 rlist <- list.files(pattern="lst")
 rlist
@@ -55,7 +57,36 @@ levelplot(TGr)
 #plottaggio singola immagine
 levelplot(TGr$lst_2000)
 
+#questa funzione cambia i colori delle immagini
 cl<-colorRampPalette(c("blue","light blue","pink","red"))(100)
+#questa funzione plotta il gruppo di file con i colori assegnati dalla funzione precedente
+levelplot(TGr,col.regions=cl)
+
+#questa funzione rinomina i 4 layer all'interno del plottaggio
+levelplot(TGr,col.regions=cl,names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+#questa funzione inserisce titolo totale della mappa finale (e rinomina i layer nel gruppo di immagini)
+levelplot(TGr,col.regions=cl,main="LST variation in time",names.attr=c("July 2000","July 2005", "July 2010", "July 2015"))
+
+#MELT
+#creo una lista di file con i dati melt sulla Groenlandia
+meltlist <- list.files(pattern="melt")
+#importo la lista con il pacchetto raster
+melt_import <- lapply(meltlist,raster)
+#raggruppo i file importati in un blocco unico
+melt <- stack(melt_import)
+melt
+#plotto il blocco di file
+levelplot(melt)
+
+#sottrazione tra il primo dato e il secondo
+melt_amount <- melt$X2007annual_melt - melt$X1979annual_melt   #melt$ lega i singoli file alla loro posizione nello stack
+#assegno una scala di colori ai file
+clb <- colorRampPalette(c("blue","white","red"))(100)
+#plotto l'immagine con la differenza
+plot(melt_amount,col=clb)
+
+levelplot(melt_amount,col.regions=clb)
+
 
 
 
