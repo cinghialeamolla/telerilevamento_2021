@@ -25,3 +25,7 @@ p224r63_2011 <- brick("p224r63_2011_masked.grd")
 #questa funzione aggrega i pixel rendendo il dato più leggero (ricampionamento)
 p224r63_2011m_res <- aggregate(p224r63_2011, fact=10, fun=mean)
 p224r63_2011m_res
+
+par(mfrow=c(2,1))
+plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
+plotRGB(p224r63_2011m_res, r=4, g=3, b=2, stretch="lin")
