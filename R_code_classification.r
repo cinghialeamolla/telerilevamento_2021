@@ -34,12 +34,25 @@ plot(sunc$map)
 ### DAY 2
 # Grand Canyon
 # https://landsat.visibleearth.nasa.gov/view.php?id=80948
+library(raster)
+library(RStoolbox)
+setwd("C:/lab/") # Windows
 
 gc <- brick("dolansprings_oli_2013088_canyon_lrg.jpg")
 plotRGB(gc, r=1, g=2, b=3, stretch="lin")
 plotRGB(gc, r=1, g=2, b=3, stretch="hist")
 #classificazione non supervisionata immagine
 gcc2 <- unsuperClass(gc, nClasses=2)
+gcc2
+#questa funzione plotta la mappa classificata
+plot(gcc2$map)
+
+gcc4 <- unsuperClass(gc, nClasses=4)
+gcc4
+plot(gcc4$map)
+
+
+
 
 
 
