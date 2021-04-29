@@ -29,3 +29,19 @@ p224r63_2011m_res
 par(mfrow=c(2,1))
 plotRGB(p224r63_2011, r=4, g=3, b=2, stretch="lin")
 plotRGB(p224r63_2011m_res, r=4, g=3, b=2, stretch="lin")
+
+#Questa funzione prende il pacchetto di dati e va a compattarli in un numero minore di bande
+p224r63_2011m_res_pca <-rasterPCA(p224r63_2011m_res)
+#questa funzione crea un sommario del modello
+summary(p224r63_2011m_res_pca$model)
+plot(p224r63_2011m_res_pca$map)
+p224r63_2011m_res_pca
+
+plotRGB(p224r63_2011m_res_pca$map, r=1, g=2, b=3, stretch="lin")
+#plot della prima componente con la seconda, per vedere se c'è correlazione
+plot(p224r63_2011m_res_pca$map&PC1,p224r63_2011m_res_pca$map&PC2)
+
+
+
+
+
