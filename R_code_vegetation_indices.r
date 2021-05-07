@@ -2,7 +2,11 @@
 
 library(raster) #require(raster)
 library(RStoolbox) #per calcolare indici di vegetazione
+#install.packages("rasterdiv")
+library(rasterdiv) #per l'NDVI globale
+library(rasterVis)
 setwd("C:/lab/") # Windows
+
 #questa funzione carica un'immagine su R
 defor1 <- brick("defor1.jpg")
 defor2 <- brick("defor2.jpg")
@@ -57,6 +61,21 @@ vi1 <- spectralIndices(defor1, green=3, red=2, nir=1)
 plot(vi1, col=cl)
 vi2 <- spectralIndices(defor2, green=3, red=2, nir=1)
 plot(vi2, col=cl)
+
+### DAY 3
+# worldwide NDVI (dal dataset Copernicus, caricato nel pacchetto rasterdiv)
+plot(copNDVI)
+
+#i pixel con valori 253, 254 e 255 possono essere trasformati in "non-valori"(Not Assigne)
+copNDVI <- reclassify(copNDVI, cbind(253:255, NA))
+plot(copNDVI)
+#questa funzione fa vedere la media dei valori su righe e colonne
+levelplot(copNDVI)
+
+
+
+
+
 
 
 
