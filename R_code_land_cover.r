@@ -29,3 +29,30 @@ plotRGB(defor2, r=1, g=2, b=3, stretch="lin")
 p1 <- ggRGB(defor1, r=1, g=2, b=3, stretch="lin")
 p2 <- ggRGB(defor2, r=1, g=2, b=3, stretch="lin")
 grid.arrange(p1, p2, nrow=2)
+
+### DAY 2
+library(raster)
+library(RStoolbox)
+library(ggplot2)
+library(gridExtra)
+setwd("C:/lab/") # Windows
+defor1 <- brick("defor1.jpg")
+defor2 <- brick("defor2.jpg")
+
+#Classificazione non-supervisionata (sceglie il softwere i pixel in modo randomizzato) 
+#classe 2: Foresta 
+#classe 1: Agricoltura
+d1c <- unsuperClass(defor1, nClasses=2)
+#plot della mappa 
+plot(d1c$map)
+#set.seed()
+
+#Immagine 2
+#classe 1: Foresta 
+#classe 2: Agricoltura
+d2c <- unsuperClass(defor2, nClasses=2)
+plot(d2c$map)
+
+#immagine 2 con 3 classi
+d2c3 <- unsuperClass(defor2, nClasses=3)
+plot(d2c3$map)
