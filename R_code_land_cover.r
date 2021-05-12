@@ -33,7 +33,7 @@ grid.arrange(p1, p2, nrow=2)
 ### DAY 2
 library(raster)
 library(RStoolbox)
-library(ggplot2)
+library(ggplot2)  #per il grafico
 library(gridExtra)
 setwd("C:/lab/") # Windows
 defor1 <- brick("defor1.jpg")
@@ -56,3 +56,38 @@ plot(d2c$map)
 #immagine 2 con 3 classi
 d2c3 <- unsuperClass(defor2, nClasses=3)
 plot(d2c3$map)
+
+#questa funzione calcola la frequenza dei pixel assegnati ad ogni classe (Es: Foresta, Agricoltura)
+freq(d1c$map)
+#value  count
+#[1,]     1 306992
+#[2,]     2  34300
+
+#sommo i valori totali delle classi
+s1 <- 306992 + 34300
+#questa funzione calcola la proporzione delle due classi
+prop1 <- freq(d1c$map) / s1
+# Proporzione Foresta:   0.8994995 
+# Proporzione Agricolo:  0.1005005 
+
+#proporzioni nella seconda mappa
+s2 <- 342726
+prop2 <- freq(d2c$map) / s2
+# Proporzione Foresta:   0.5216908
+# Proporzione Agricolo:  0.4783092
+
+#creare un dataset
+#colonne
+copertura <- c("Agricultura","Foresta") #prima colonna
+percentuale_1992 <- c(10.05,89.95)
+percentuale_2006 <- c(47.83,52.17)
+#tabella
+percentuali <- data.frame(copertura, percentuale_1992, percentuale_2006)
+percentuali
+#plot del grafico
+p1<-ggplot(percentuali, aes(x=copertura, y=percentuale_1992, color=copertura)) + geom_bar(stat="identity", fill="white")
+
+
+
+
+
