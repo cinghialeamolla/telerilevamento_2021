@@ -34,7 +34,7 @@ grid.arrange(p1, p2, nrow=2)
 library(raster)
 library(RStoolbox)
 library(ggplot2)  #per il grafico
-library(gridExtra)
+library(gridExtra) #per arrangiare insieme i plot
 setwd("C:/lab/") # Windows
 defor1 <- brick("defor1.jpg")
 defor2 <- brick("defor2.jpg")
@@ -84,10 +84,11 @@ percentuale_2006 <- c(47.83,52.17)
 #tabella
 percentuali <- data.frame(copertura, percentuale_1992, percentuale_2006)
 percentuali
-#plot del grafico
+#plot del grafico  del 1992
 p1<-ggplot(percentuali, aes(x=copertura, y=percentuale_1992, color=copertura)) + geom_bar(stat="identity", fill="white")
-
-
-
+#plot del grafico  del 2006
+p2<-ggplot(percentuali, aes(x=copertura, y=percentuale_2006, color=copertura)) + geom_bar(stat="identity", fill="white")
+#arrangiare i due grafici in una pagina
+grid.arrange(p1, p2, nrow=1)
 
 
