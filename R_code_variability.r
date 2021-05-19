@@ -11,7 +11,8 @@ sent <- brick("sentinel.png")
 # r=1, g=2, b=3
 plotRGB(sent, stretch="lin") #plotRGB(sent, r=1, g=2, b=3, stretch="lin")
 plotRGB(sent, r=2, g=1, b=3, stretch="lin")
-
+#DEVIAZIONE STANDARD, 2 metodi:
+#Metodo 1:
 #associazione bande nir e red dell'immagine a un oggetto
 nir <- sent$sentinel.1
 red <- sent$sentinel.2
@@ -37,17 +38,10 @@ ndvisd5 <- focal(ndvi, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
 plot(ndvisd5, col=clsd)
 
-
-
-
-
-clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
-plot(ndvimean3, col=clsd)
-ndvisd5 <- focal(ndvi, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
-clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
-plot(ndvisd5, col=clsd)
+#Metodo 2:
+#Calcolo PCA per unire le bande in un unico strato
 sentpca <- rasterPCA(sent)
-
 plot(sentpca$map)
+#serve per vedere quanto spiegano le singole componenti
 summary(sentpca$model)
- 
+ #la prima PC spiega il 67,36804 % dell'informazione originale
