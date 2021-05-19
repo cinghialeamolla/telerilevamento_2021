@@ -19,18 +19,28 @@ red <- sent$sentinel.2
 ndvi <- (nir-red) / (nir+red)
 #plot NDVI
 plot(ndvi)
-
-
-
-
+#cambio colorazione
 cl <- colorRampPalette(c('black','white','red','magenta','green'))(100) # 
 plot(ndvi,col=cl)
+#calcolo deviazione standard dell'NDVI con una finestra mobile di 3x3 pixel
 ndvisd3 <- focal(ndvi, w=matrix(1/9, nrow=3, ncol=3), fun=sd)
 plot(ndvisd3)
+#cambio colorazione dev standard
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) #
 plot(ndvisd3, col=clsd)
-# mean ndvi with focal
+# calcolo della media dell'NDVI
 ndvimean3 <- focal(ndvi, w=matrix(1/9, nrow=3, ncol=3), fun=mean)
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
+plot(ndvimean3, col=clsd)
+#dev.standard dell'NDVI con una finestra di 5x5
+ndvisd5 <- focal(ndvi, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
+clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
+plot(ndvisd5, col=clsd)
+
+
+
+
+
 clsd <- colorRampPalette(c('blue','green','pink','magenta','orange','brown','red','yellow'))(100) # 
 plot(ndvimean3, col=clsd)
 ndvisd5 <- focal(ndvi, w=matrix(1/25, nrow=5, ncol=5), fun=sd)
